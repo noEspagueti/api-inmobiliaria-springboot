@@ -38,7 +38,7 @@ public class usuarioController {
     //METHOD POST PARA CREAR USUARIOS
     @PostMapping
     @Transactional
-    public usuarioEntity saveUsuario(@RequestBody usuarioEntity usuarioRequest) {
+        public usuarioEntity saveUsuario(@RequestBody usuarioEntity usuarioRequest) {
         credencialesEntity credencial = new credencialesEntity(usuarioRequest.getCredenciales().getCorreo(), usuarioRequest.getCredenciales().getClave());
         credencial = credencialesService.saveCredenciales(credencial);
         usuarioEntity newUser = new usuarioEntity(credencial, usuarioRequest.getNombre(), usuarioRequest.getApellido(), usuarioRequest.getDireccion(), usuarioRequest.getDistrito(), usuarioRequest.getDistrito());

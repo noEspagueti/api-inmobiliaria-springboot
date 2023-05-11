@@ -5,9 +5,7 @@
 package com.inmobiliaria.inmobiliaria.models;
 
 import jakarta.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  *
@@ -86,8 +84,8 @@ public class usuarioEntity {
         this.idUsuario = idUsuario;
     }
 
-    public String getCredenciales() {
-        return credenciales.getCorreo();
+    public credencialesEntity getCredenciales() {
+        return credenciales;
     }
 
     public void setCredenciales(credencialesEntity credenciales) {
