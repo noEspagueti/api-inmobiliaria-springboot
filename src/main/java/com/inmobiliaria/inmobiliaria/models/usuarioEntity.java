@@ -5,6 +5,7 @@
 package com.inmobiliaria.inmobiliaria.models;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -29,8 +30,8 @@ public class usuarioEntity {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<publicacionEntity> publicacion;
 
-    @Embedded
-    private Set<favoritosEntity> favoritos;
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<favoritosEntity> favoritos;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<contactosEntity> contactos;
@@ -47,7 +48,24 @@ public class usuarioEntity {
     public usuarioEntity() {
     }
 
-    public usuarioEntity(Long idUsuario, credencialesEntity credenciales, List<publicacionEntity> publicacion, Set<favoritosEntity> favoritos, List<contactosEntity> contactos, String nombre, String apellido, String direccion, String distrito, String celular) {
+    public usuarioEntity(String nombre, String apellido, String direccion, String distrito, String celular) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.direccion = direccion;
+        this.distrito = distrito;
+        this.celular = celular;
+    }
+
+    public usuarioEntity(credencialesEntity credenciales, String nombre, String apellido, String direccion, String distrito, String celular) {
+        this.credenciales = credenciales;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.direccion = direccion;
+        this.distrito = distrito;
+        this.celular = celular;
+    }
+
+    public usuarioEntity(Long idUsuario, credencialesEntity credenciales, List<publicacionEntity> publicacion, List<favoritosEntity> favoritos, List<contactosEntity> contactos, String nombre, String apellido, String direccion, String distrito, String celular) {
         this.idUsuario = idUsuario;
         this.credenciales = credenciales;
         this.publicacion = publicacion;
@@ -68,8 +86,8 @@ public class usuarioEntity {
         this.idUsuario = idUsuario;
     }
 
-    public Long getCredenciales() {
-        return credenciales.getIdCredenciales();
+    public String getCredenciales() {
+        return credenciales.getCorreo();
     }
 
     public void setCredenciales(credencialesEntity credenciales) {
@@ -84,11 +102,11 @@ public class usuarioEntity {
         this.publicacion = publicacion;
     }
 
-    public Set<favoritosEntity> getFavoritos() {
+    public List<favoritosEntity> getFavoritos() {
         return favoritos;
     }
 
-    public void setFavoritos(Set<favoritosEntity> favoritos) {
+    public void setFavoritos(List<favoritosEntity> favoritos) {
         this.favoritos = favoritos;
     }
 

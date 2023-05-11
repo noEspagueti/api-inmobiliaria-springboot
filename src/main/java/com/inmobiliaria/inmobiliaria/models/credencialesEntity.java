@@ -7,7 +7,6 @@ package com.inmobiliaria.inmobiliaria.models;
 import jakarta.persistence.*;
 import java.util.List;
 
-
 /**
  *
  * @author Miguel
@@ -21,13 +20,19 @@ public class credencialesEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCredenciales;
 
-    @OneToMany(mappedBy = "credenciales",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "credenciales", cascade = CascadeType.ALL)
+    @Column(nullable = true)
     private List<usuarioEntity> usuario;
 
     private String correo;
     private String clave;
 
     public credencialesEntity() {
+    }
+
+    public credencialesEntity(String correo, String clave) {
+        this.correo = correo;
+        this.clave = clave;
     }
 
     public credencialesEntity(Long idCredenciales, List<usuarioEntity> usuario, String correo, String clave) {

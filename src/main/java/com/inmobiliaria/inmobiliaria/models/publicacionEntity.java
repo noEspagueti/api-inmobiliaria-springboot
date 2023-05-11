@@ -25,7 +25,9 @@ public class publicacionEntity {
     @JoinColumn(name = "idUsuario")
     private usuarioEntity usuario;
     
-    
+    @OneToOne
+    @JoinColumn(name = "idFavorito")
+    private favoritosEntity favorito;
     
     private String titulo;
     private String contenido;
@@ -49,9 +51,6 @@ public class publicacionEntity {
         this.tipoInmueble = tipoInmueble;
         this.fecha = fecha;
     }
-
-    
-   
 
     public Long getIdPublicacion() {
         return idPublicacion;

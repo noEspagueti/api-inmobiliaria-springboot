@@ -20,14 +20,20 @@ public class favoritosEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idfavoritos;
 
-    @Embedded
-    List<publicacionEntity> publicacion;
-
+    @ManyToOne
+    @JoinColumn(name = "idUsuario")
+    private usuarioEntity usuario;
+    
+    
+    @OneToOne(mappedBy = "favorito")
+    private publicacionEntity publicacion;
+    
     public favoritosEntity() {
     }
 
-    public favoritosEntity(Long idfavoritos, List<publicacionEntity> publicacion) {
+    public favoritosEntity(Long idfavoritos, usuarioEntity usuario, publicacionEntity publicacion) {
         this.idfavoritos = idfavoritos;
+        this.usuario = usuario;
         this.publicacion = publicacion;
     }
 
@@ -39,12 +45,22 @@ public class favoritosEntity {
         this.idfavoritos = idfavoritos;
     }
 
-    public List<publicacionEntity> getPublicacion() {
+    public usuarioEntity getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(usuarioEntity usuario) {
+        this.usuario = usuario;
+    }
+
+    public publicacionEntity getPublicacion() {
         return publicacion;
     }
 
-    public void setPublicaion(List<publicacionEntity> publicacion) {
+    public void setPublicacion(publicacionEntity publicacion) {
         this.publicacion = publicacion;
     }
-
+    
+    
+    
 }

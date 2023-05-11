@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 /**
  *
  * @author Miguel
@@ -24,5 +25,8 @@ public class usuarioServices {
             return usuarioRepo.findAll();
     }
     
+    public usuarioEntity saveUsuario(usuarioEntity usuario){
+        return usuarioRepo.save(usuario);
+    }
     
-}
+}   
