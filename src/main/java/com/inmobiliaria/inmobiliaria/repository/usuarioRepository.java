@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
  * @author Miguel
  */
 @Repository
-public interface usuarioRepository extends JpaRepository<usuarioEntity, Long>{
-    
+public interface usuarioRepository extends JpaRepository<usuarioEntity, Long> {
+
 }

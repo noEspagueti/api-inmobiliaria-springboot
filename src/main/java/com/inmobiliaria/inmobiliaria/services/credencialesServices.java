@@ -17,14 +17,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class credencialesServices {
 
-    @Autowired
-    private credencialesRepository credencialesRepository;
+	@Autowired
+	private credencialesRepository credencialesRepository;
 
-    public List<credencialesEntity> getAllCredenciales(){
-        return credencialesRepository.findAll();
-    }
-    
-    public credencialesEntity saveCredenciales(credencialesEntity credencial) {
-        return credencialesRepository.save(credencial);
-    }
+	public List<credencialesEntity> getAllCredenciales() {
+		return credencialesRepository.findAll();
+	}
+
+	public credencialesEntity saveCredenciales(credencialesEntity credencial) {
+		return credencialesRepository.save(credencial);
+	}
+
+	public credencialesEntity findByCorreo(String c) {
+		return credencialesRepository.findByCorreo(c);
+	}
 }

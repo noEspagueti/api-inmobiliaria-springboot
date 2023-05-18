@@ -1,11 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.inmobiliaria.inmobiliaria.models;
 
 import jakarta.persistence.*;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
  *
@@ -15,63 +13,70 @@ import java.util.List;
 @Table(name = "credenciales")
 public class credencialesEntity {
 
-    @Id
-    @Column(insertable = false, updatable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCredenciales;
+	@Id
+	@Column(insertable = false, updatable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idCredenciales;
 
-    @OneToMany(mappedBy = "credenciales", cascade = CascadeType.ALL)
-    @Column(nullable = true)
-    private List<usuarioEntity> usuario;
+	@OneToOne(mappedBy = "credenciales", cascade = CascadeType.ALL)
+	@JsonBackReference
+	private usuarioEntity usuario;
 
-    private String correo;
-    private String clave;
+	@Column(unique = true,length = 80)
+	private String correo;
+	private String clave;
 
-    public credencialesEntity() {
-    }
+	public credencialesEntity() {
+	}
 
-    public credencialesEntity(String correo, String clave) {
-        this.correo = correo;
-        this.clave = clave;
-    }
+	public credencialesEntity(String correo, String clave) {
+		this.correo = correo;
+		this.clave = clave;
+	}
 
-    public credencialesEntity(Long idCredenciales, List<usuarioEntity> usuario, String correo, String clave) {
-        this.idCredenciales = idCredenciales;
-        this.usuario = usuario;
-        this.correo = correo;
-        this.clave = clave;
-    }
+	public credencialesEntity(usuarioEntity usuario, String correo, String clave) {
+		this.usuario = usuario;
+		this.correo = correo;
+		this.clave = clave;
+	}
 
-    public Long getIdCredenciales() {
-        return idCredenciales;
-    }
+	public credencialesEntity(Long idCredenciales, usuarioEntity usuario, String correo, String clave) {
+		this.idCredenciales = idCredenciales;
+		this.usuario = usuario;
+		this.correo = correo;
+		this.clave = clave;
+	}
 
-    public void setIdCredenciales(Long idCredenciales) {
-        this.idCredenciales = idCredenciales;
-    }
+	public Long getIdCredenciales() {
+		return idCredenciales;
+	}
 
-    public List<usuarioEntity> getUsuario() {
-        return usuario;
-    }
+	public void setIdCredenciales(Long idCredenciales) {
+		this.idCredenciales = idCredenciales;
+	}
 
-    public void setUsuario(List<usuarioEntity> usuario) {
-        this.usuario = usuario;
-    }
+	public usuarioEntity getUsuario() {
+		return usuario;
+	}
 
-    public String getCorreo() {
-        return correo;
-    }
+	public void setUsuario(usuarioEntity usuario) {
+		this.usuario = usuario;
+	}
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
+	public String getCorreo() {
+		return correo;
+	}
 
-    public String getClave() {
-        return clave;
-    }
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
 
-    public void setClave(String clave) {
-        this.clave = clave;
-    }
+	public String getClave() {
+		return clave;
+	}
+
+	public void setClave(String clave) {
+		this.clave = clave;
+	}
 
 }
