@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author Miguel
  */
+
 @RestController
 @RequestMapping("/api/usuarios")
 public class usuarioController {
