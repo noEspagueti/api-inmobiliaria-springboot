@@ -51,7 +51,7 @@ public class credencialesController {
 		credencialesEntity credencialUsuario = credencialesService.findByCorreo(correo);
 		if (credencialUsuario == null) {
 			Map<String, String> errorNotFound = new HashMap<String, String>();
-			errorNotFound.put("error", "Usuario no existe");
+			errorNotFound.put("mensaje", "Usuario no existe");
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorNotFound);
 		}
 		return ResponseEntity.ok(credencialUsuario);

@@ -29,7 +29,7 @@ public class usuarioEntity {
 	@JoinColumn(name = "idCredenciales")
 	private credencialesEntity credenciales;
 
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<publicacionEntity> publicacion;
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)

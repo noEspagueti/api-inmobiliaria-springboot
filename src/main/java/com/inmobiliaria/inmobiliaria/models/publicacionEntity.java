@@ -8,6 +8,9 @@ import jakarta.persistence.*;
 import java.sql.Date;
 
 
+import org.springframework.web.multipart.MultipartFile;
+
+
 /**
  *
  * @author Miguel
@@ -37,9 +40,12 @@ public class publicacionEntity {
     private String tipoInmueble;
     private Date fecha;
 
+    @Transient
+    private MultipartFile imagenPublicacion;
+    
     public publicacionEntity() {
     }
-
+    
     public publicacionEntity(Long idPublicacion, usuarioEntity usuario, String titulo, String contenido, Double precio, String rutaImg, String tipoPublicacion, String tipoInmueble, Date fecha) {
         this.idPublicacion = idPublicacion;
         this.usuario = usuario;
@@ -51,7 +57,7 @@ public class publicacionEntity {
         this.tipoInmueble = tipoInmueble;
         this.fecha = fecha;
     }
-
+    
     public Long getIdPublicacion() {
         return idPublicacion;
     }
