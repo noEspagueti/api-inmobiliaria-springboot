@@ -1,10 +1,12 @@
 
 package com.inmobiliaria.inmobiliaria.models;
 
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 import jakarta.persistence.*;
 import java.util.List;
@@ -15,29 +17,23 @@ import java.util.List;
  */
 @Entity
 @Table(name = "usuario")
-
 public class usuarioEntity {
 
 	@Id
-	@Column(insertable = false, updatable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idUsuario;
+	@Column(length = 8,unique = true)
+	private String dniUsuario;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	@JsonManagedReference
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	@JoinColumn(name = "idCredenciales")
+	@JoinColumn(name="idCredenciales")
 	private credencialesEntity credenciales;
 
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<publicacionEntity> publicacion;
 
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-	private List<favoritosEntity> favoritos;
-
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-	private List<contactosEntity> contactos;
-
+	
 	@Column(length = 60)
 	private String nombre;
 	@Column(length = 60)
@@ -50,34 +46,15 @@ public class usuarioEntity {
 	private String celular;
 
 	public usuarioEntity() {
+		super();
 	}
-
-	public usuarioEntity(String nombre, String apellido, String direccion, String distrito, String celular) {
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.direccion = direccion;
-		this.distrito = distrito;
-		this.celular = celular;
-	}
-
-	public usuarioEntity(credencialesEntity credenciales, String nombre, String apellido, String direccion,
-			String distrito, String celular) {
-		this.credenciales = credenciales;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.direccion = direccion;
-		this.distrito = distrito;
-		this.celular = celular;
-	}
-
-	public usuarioEntity(Long idUsuario, credencialesEntity credenciales, List<publicacionEntity> publicacion,
-			List<favoritosEntity> favoritos, List<contactosEntity> contactos, String nombre, String apellido,
+	
+	// CREAR USUARIO
+	public usuarioEntity(String dniUsuario, credencialesEntity credenciales, String nombre, String apellido,
 			String direccion, String distrito, String celular) {
-		this.idUsuario = idUsuario;
+		super();
+		this.dniUsuario = dniUsuario;
 		this.credenciales = credenciales;
-		this.publicacion = publicacion;
-		this.favoritos = favoritos;
-		this.contactos = contactos;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.direccion = direccion;
@@ -85,12 +62,12 @@ public class usuarioEntity {
 		this.celular = celular;
 	}
 
-	public Long getIdUsuario() {
-		return idUsuario;
+	public String getDniUsuario() {
+		return dniUsuario;
 	}
 
-	public void setIdUsuario(Long idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setDniUsuario(String dniUsuario) {
+		this.dniUsuario = dniUsuario;
 	}
 
 	public credencialesEntity getCredenciales() {
@@ -107,22 +84,6 @@ public class usuarioEntity {
 
 	public void setPublicacion(List<publicacionEntity> publicacion) {
 		this.publicacion = publicacion;
-	}
-
-	public List<favoritosEntity> getFavoritos() {
-		return favoritos;
-	}
-
-	public void setFavoritos(List<favoritosEntity> favoritos) {
-		this.favoritos = favoritos;
-	}
-
-	public List<contactosEntity> getContactos() {
-		return contactos;
-	}
-
-	public void setContactos(List<contactosEntity> contactos) {
-		this.contactos = contactos;
 	}
 
 	public String getNombre() {
@@ -164,5 +125,7 @@ public class usuarioEntity {
 	public void setCelular(String celular) {
 		this.celular = celular;
 	}
+
+	
 
 }

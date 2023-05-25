@@ -8,9 +8,12 @@ public interface AlmacenServices {
 
 	public void iniciarAlmacenDeArchivos();
 
-	public String almacenarArchivos(MultipartFile archivo);
+	public void almacenarArchivos(String archivo,String nombreArchivo);
 
 	public Path cargarArchivos(String nombreArchivo);
+	
+
+	public Resource cargarComoRecurso(String nombreArchivo);
 	
 	public void eliminarArchivo(String nombreArchivo);
 

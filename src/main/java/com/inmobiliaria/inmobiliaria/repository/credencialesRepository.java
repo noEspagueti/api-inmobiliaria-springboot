@@ -5,6 +5,7 @@
 package com.inmobiliaria.inmobiliaria.repository;
 
 import com.inmobiliaria.inmobiliaria.models.credencialesEntity;
+import com.inmobiliaria.inmobiliaria.models.usuarioEntity;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -16,5 +17,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface credencialesRepository extends JpaRepository<credencialesEntity, Long> {
 	public credencialesEntity findByCorreo(String correo);
-
 }

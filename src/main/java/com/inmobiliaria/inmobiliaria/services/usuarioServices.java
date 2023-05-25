@@ -4,6 +4,7 @@
  */
 package com.inmobiliaria.inmobiliaria.services;
 
+import com.inmobiliaria.inmobiliaria.models.credencialesEntity;
 import com.inmobiliaria.inmobiliaria.models.usuarioEntity;
 import com.inmobiliaria.inmobiliaria.repository.usuarioRepository;
 import java.util.List;
@@ -27,5 +28,8 @@ public class usuarioServices {
 	public usuarioEntity saveUsuario(usuarioEntity usuario) {
 		return usuarioRepo.save(usuario);
 	}
-
+	
+	public usuarioEntity findByCredencialesCorreo(String correo) {
+		return usuarioRepo.findByCredencialesCorreo(correo);
+	}
 }

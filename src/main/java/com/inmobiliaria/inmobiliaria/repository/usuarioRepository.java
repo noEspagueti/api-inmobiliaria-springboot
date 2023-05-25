@@ -4,6 +4,7 @@
  */
 package com.inmobiliaria.inmobiliaria.repository;
 
+import com.inmobiliaria.inmobiliaria.models.credencialesEntity;
 import com.inmobiliaria.inmobiliaria.models.usuarioEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -14,5 +15,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface usuarioRepository extends JpaRepository<usuarioEntity, Long> {
-
+	public usuarioEntity findByCredencialesCorreo(String credencialesCorreo);
 }

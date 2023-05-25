@@ -18,12 +18,14 @@ public class credencialesEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idCredenciales;
 
-	@OneToOne(mappedBy = "credenciales", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "credenciales")
 	@JsonBackReference
 	private usuarioEntity usuario;
 
 	@Column(unique = true,length = 80)
 	private String correo;
+	
+	@Column(length=100)
 	private String clave;
 
 	public credencialesEntity() {

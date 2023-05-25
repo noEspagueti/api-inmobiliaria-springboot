@@ -10,6 +10,7 @@ import com.inmobiliaria.inmobiliaria.repository.publicacionRepository;
 
 @Service
 public class publicacionServices {
+	
 	@Autowired
 	private publicacionRepository publicacionRepositorio;
 
