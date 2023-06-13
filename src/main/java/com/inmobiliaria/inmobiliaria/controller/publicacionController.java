@@ -1,11 +1,18 @@
 package com.inmobiliaria.inmobiliaria.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +25,7 @@ import jakarta.transaction.Transactional;
 
 @RestController
 @RequestMapping(value = "/api/publicacion")
-
+@CrossOrigin("http://localhost:8080/")
 public class publicacionController {
 
 	@Autowired
@@ -29,10 +36,45 @@ public class publicacionController {
 		return publicacionService.getFindAll();
 	}
 
-	@PostMapping
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional
 	public publicacionEntity savePublicacion(@RequestBody publicacionEntity p) {
 		return publicacionService.savePublicacion(p);
+	}
+
+	@GetMapping("/{dniUsuario}")
+	public ResponseEntity<List<publicacionEntity>> getPublicacionByusuario(@PathVariable String dniUsuario) {
+		List<publicacionEntity> publicacion = publicacionService.getPublicacionesByUsuario(dniUsuario);
+		return ResponseEntity.ok(publicacion);
+	}
+
+	@GetMapping("/allCiudad")
+	public List<String> getAllCiudad() {
+		return publicacionService.getPublicacionesByCiudad();
+	}
+
+	@GetMapping("/allDistrito")
+	public List<String> getAllDistrito() {
+		return publicacionService.getPublicacionesByDistrito();
+	}
+
+	@GetMapping("/ciudadDistrito/{ciudad}")
+	public ResponseEntity<Map<String, List<String>>> getAllCiudadDistrito(@PathVariable String ciudad) {
+		Map<String, List<String>> ciudadesYDistritos = new HashMap<String, List<String>>();
+		List<String> listaDistrito = publicacionService.getListDistritoByCiudad(ciudad);
+		ciudadesYDistritos.put(ciudad, listaDistrito);
+		return ResponseEntity.ok(ciudadesYDistritos);
+	}
+
+	@GetMapping("/find/{idPublicacion}")
+	public ResponseEntity<?> getPublicacion(@PathVariable Long idPublicacion) {
+		publicacionEntity publicacion = publicacionService.getByIdPublicacion(idPublicacion);
+		if (publicacion == null) {
+			Map<String, String> hasError = new HashMap<String,String>();
+			hasError.put("error", "No se encontró esta publicación");
+			return ResponseEntity.ok(hasError);
+		}
+		return ResponseEntity.ok(publicacion);
 	}
 
 }

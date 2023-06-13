@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -20,27 +19,30 @@ import java.util.List;
 public class usuarioEntity {
 
 	@Id
-	@Column(length = 8,unique = true)
+	@Column(length = 8, unique = true)
 	private String dniUsuario;
 
-	@OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	@JsonManagedReference
-	@JoinColumn(name="idCredenciales")
+	@JoinColumn(name = "idCredenciales")
 	private credencialesEntity credenciales;
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<publicacionEntity> publicacion;
 
-	
-	@Column(length = 60)
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<contactosEntity> contactos;
+
+	@Column(length = 100)
 	private String nombre;
-	@Column(length = 60)
+	@Column(length = 100)
 	private String apellido;
-	@Column(length = 60)
+	@Column(length = 200)
 	private String direccion;
-	@Column(length = 50)
+	@Column(length = 100)
 	private String distrito;
 	@Column(length = 9)
 	private String celular;
@@ -48,7 +50,7 @@ public class usuarioEntity {
 	public usuarioEntity() {
 		super();
 	}
-	
+
 	// CREAR USUARIO
 	public usuarioEntity(String dniUsuario, credencialesEntity credenciales, String nombre, String apellido,
 			String direccion, String distrito, String celular) {
@@ -125,7 +127,5 @@ public class usuarioEntity {
 	public void setCelular(String celular) {
 		this.celular = celular;
 	}
-
-	
 
 }

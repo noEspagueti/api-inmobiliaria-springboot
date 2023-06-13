@@ -7,23 +7,13 @@ package com.inmobiliaria.inmobiliaria.models;
 import jakarta.persistence.*;
 import java.sql.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFilter;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.databind.annotation.JsonValueInstantiator;
 
-/**
- *
- * @author Miguel
- */
 @Entity
 @Table(name = "publicacion")
 public class publicacionEntity {
@@ -36,26 +26,26 @@ public class publicacionEntity {
 	@JoinColumn(name = "dniUsuario")
 	private usuarioEntity usuario;
 	
-	@Column(length = 50)
+	@Column(length = 150)
 	private String titulo;
 	
-	@Column(length = 50)
+	@Column(length = 150)
 	private String distrito;
 	
-	@Column(length = 50)
+	@Column(length = 150)
 	private String ciudad;
 	
 	private String contenido;
 	
 	private Double precio;
 	
-	@Column(length = 50)
+	@Column(length = 150)
 	private String rutaImg;
 	
-	@Column(length = 50)
+	@Column(length = 150)
 	private String tipoPublicacion;
 	
-	@Column(length = 50)
+	@Column(length = 150)
 	private String tipoInmueble;
 	
 	

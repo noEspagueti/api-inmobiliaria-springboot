@@ -22,7 +22,7 @@ public class credencialesEntity {
 	@JsonBackReference
 	private usuarioEntity usuario;
 
-	@Column(unique = true,length = 80)
+	@Column(unique = true,length = 120)
 	private String correo;
 	
 	@Column(length=100)
