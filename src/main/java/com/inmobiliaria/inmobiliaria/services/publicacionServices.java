@@ -45,4 +45,14 @@ public class publicacionServices {
 	public publicacionEntity getByIdPublicacion(Long idPublicacion) {
 		return publicacionRepositorio.findByIdPublicacion(idPublicacion);
 	}
+	
+	
+	public List<publicacionEntity> findAllByCiudad(String ciudad){
+		return publicacionRepositorio.getAllByCiudad(ciudad);
+	}
+	
+	public List<publicacionEntity> findAllByCiudadAndDistrito(String ciudad, String distrito){
+		return publicacionRepositorio.getAllByCiudadAndDistrito(ciudad, distrito);
+	}
+	
 }

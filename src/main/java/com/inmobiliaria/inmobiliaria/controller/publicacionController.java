@@ -58,7 +58,7 @@ public class publicacionController {
 		return publicacionService.getPublicacionesByDistrito();
 	}
 
-	@GetMapping("/ciudadDistrito/{ciudad}")
+	@GetMapping("/ciudad/distrito/{ciudad}")
 	public ResponseEntity<Map<String, List<String>>> getAllCiudadDistrito(@PathVariable String ciudad) {
 		Map<String, List<String>> ciudadesYDistritos = new HashMap<String, List<String>>();
 		List<String> listaDistrito = publicacionService.getListDistritoByCiudad(ciudad);
@@ -66,15 +66,24 @@ public class publicacionController {
 		return ResponseEntity.ok(ciudadesYDistritos);
 	}
 
-	@GetMapping("/find/{idPublicacion}")
+	@GetMapping("/find/id/{idPublicacion}")
 	public ResponseEntity<?> getPublicacion(@PathVariable Long idPublicacion) {
 		publicacionEntity publicacion = publicacionService.getByIdPublicacion(idPublicacion);
 		if (publicacion == null) {
-			Map<String, String> hasError = new HashMap<String,String>();
+			Map<String, String> hasError = new HashMap<String, String>();
 			hasError.put("error", "No se encontró esta publicación");
 			return ResponseEntity.ok(hasError);
 		}
 		return ResponseEntity.ok(publicacion);
 	}
 
+	@GetMapping("/ciudad/{ciudad}")
+	public List<publicacionEntity> getAllPublicacionByCiudad(@PathVariable String ciudad) {
+		return publicacionService.findAllByCiudad(ciudad);
+	}
+
+	@GetMapping("/ciudad&distrito/{ciudad}/{distrito}")
+	public List<publicacionEntity> getAllByCiudadDistrito(@PathVariable String ciudad, @PathVariable String distrito) {
+		return publicacionService.findAllByCiudadAndDistrito(ciudad, distrito);
+	}
 }

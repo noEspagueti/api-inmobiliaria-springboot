@@ -25,5 +25,8 @@ public interface publicacionRepository extends JpaRepository<publicacionEntity, 
 
 	@Query("SELECT p.distrito FROM publicacionEntity p WHERE p.ciudad = :ciudad")
 	public  List<String> getAllCiudadDistrito(@Param("ciudad") String ciudad);
-
+	
+	public List<publicacionEntity> getAllByCiudad(String ciudad);
+	
+	public List<publicacionEntity> getAllByCiudadAndDistrito(String ciudad, String distrito);
 }
