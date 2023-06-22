@@ -7,13 +7,6 @@ package com.inmobiliaria.inmobiliaria.models;
 import jakarta.persistence.*;
 import java.sql.Date;
 
-
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 @Table(name = "publicacion")
 public class publicacionEntity {
@@ -25,30 +18,29 @@ public class publicacionEntity {
 	@ManyToOne
 	@JoinColumn(name = "dniUsuario")
 	private usuarioEntity usuario;
-	
+
 	@Column(length = 150)
 	private String titulo;
-	
+
 	@Column(length = 150)
 	private String distrito;
-	
+
 	@Column(length = 150)
 	private String ciudad;
-	
+
 	private String contenido;
-	
+
 	private Double precio;
-	
+
 	@Column(length = 150)
 	private String rutaImg;
-	
+
 	@Column(length = 150)
 	private String tipoPublicacion;
-	
+
 	@Column(length = 150)
 	private String tipoInmueble;
-	
-	
+
 	private Date fecha;
 
 	public publicacionEntity() {
@@ -85,8 +77,6 @@ public class publicacionEntity {
 		this.fecha = fecha;
 	}
 
-
-
 	public Long getIdPublicacion() {
 		return idPublicacion;
 	}
@@ -102,7 +92,6 @@ public class publicacionEntity {
 	public void setUsuario(usuarioEntity usuario) {
 		this.usuario = usuario;
 	}
-
 
 	public String getTitulo() {
 		return titulo;

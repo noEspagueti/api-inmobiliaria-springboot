@@ -49,21 +49,16 @@ public class usuarioController {
 		credencialesEntity credencial = new credencialesEntity(usuarioRequest.getCredenciales().getCorreo(),
 				usuarioRequest.getCredenciales().getClave());
 		credencial = credencialesService.saveCredenciales(credencial);
-		usuarioEntity newUser = new usuarioEntity(usuarioRequest.getDniUsuario(),credencial, usuarioRequest.getNombre(), usuarioRequest.getApellido(),
+		usuarioEntity newUser = new usuarioEntity(usuarioRequest.getDniUsuario(), credencial,
+				usuarioRequest.getNombre(), usuarioRequest.getApellido(),
 				usuarioRequest.getDireccion(), usuarioRequest.getDistrito(), usuarioRequest.getCelular());
 		return usuarioService.saveUsuario(newUser);
 	}
-	
-	
-	//METHOD PARA BUSCAR POR CREDENCIALES
+
+	// METHOD PARA BUSCAR POR CREDENCIALES
 	@GetMapping("/{correo}")
-	public ResponseEntity<?> findByCorreoUsuario(@PathVariable String correo) {
+	public ResponseEntity<usuarioEntity> findByCorreoUsuario(@PathVariable String correo) {
 		usuarioEntity usuario = usuarioService.findByCredencialesCorreo(correo);
-		if (usuario == null) {
-			Map<String, String> notFound = new HashMap<String, String>();
-			notFound.put("mensaje", "Usuario no existe");
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(notFound);
-		}
 		return ResponseEntity.ok(usuario);
 	}
 }
