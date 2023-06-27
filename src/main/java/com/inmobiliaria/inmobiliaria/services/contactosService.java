@@ -10,20 +10,20 @@ import com.inmobiliaria.inmobiliaria.repository.contactosRepository;
 
 @Service
 public class contactosService {
-	
+
 	@Autowired
 	private contactosRepository repositorio;
-	
-	public List<contactosEntity> getAllContactos(){
+
+	public List<contactosEntity> getAllContactos() {
 		return repositorio.findAll();
 	}
-	
-	public List<contactosEntity> getAllByUsuarioDniUsuario(String dniUsuario){
-		return repositorio.findAllByUsuarioDniUsuario(dniUsuario);
+
+	public List<contactosEntity> getAllByDniContacto(String dniContacto) {
+		return repositorio.findAllByDniContacto(dniContacto);
 	}
-	
+
 	public contactosEntity save(contactosEntity contacto) {
 		return repositorio.save(contacto);
 	}
-	
+
 }
