@@ -12,7 +12,7 @@ import com.inmobiliaria.inmobiliaria.repository.publicacionRepository;
 
 @Service
 public class publicacionServices {
-	
+
 	@Autowired
 	private publicacionRepository publicacionRepositorio;
 
@@ -23,36 +23,48 @@ public class publicacionServices {
 	public publicacionEntity savePublicacion(publicacionEntity p) {
 		return publicacionRepositorio.save(p);
 	}
-	
-	
+
 	public List<publicacionEntity> getPublicacionesByUsuario(String dniusuario) {
 		return publicacionRepositorio.findAllByUsuarioDniUsuario(dniusuario);
 	}
-	
-	public List<String> getPublicacionesByCiudad(){
+
+	public List<String> getPublicacionesByCiudad() {
 		return publicacionRepositorio.getAllCiudad();
 	}
 
-	
-	public List<String> getPublicacionesByDistrito(){
+	public List<String> getPublicacionesByDistrito() {
 		return publicacionRepositorio.getAllDistrito();
 	}
-	
-	public  List<String> getListDistritoByCiudad(String ciudad){
+
+	public List<String> getListDistritoByCiudad(String ciudad) {
 		return publicacionRepositorio.getAllCiudadDistrito(ciudad);
 	}
-	
+
 	public publicacionEntity getByIdPublicacion(Long idPublicacion) {
 		return publicacionRepositorio.findByIdPublicacion(idPublicacion);
 	}
-	
-	
-	public List<publicacionEntity> findAllByCiudad(String ciudad){
+
+	public List<publicacionEntity> findAllByCiudad(String ciudad) {
 		return publicacionRepositorio.getAllByCiudad(ciudad);
 	}
-	
-	public List<publicacionEntity> findAllByCiudadAndDistrito(String ciudad, String distrito){
+
+	public List<publicacionEntity> findAllByCiudadAndDistrito(String ciudad, String distrito) {
 		return publicacionRepositorio.getAllByCiudadAndDistrito(ciudad, distrito);
 	}
-	
+
+	public List<publicacionEntity> findAllByTipoPublicacion(String tipoPublicacion) {
+		return publicacionRepositorio.getAllByTipoPublicacion(tipoPublicacion);
+	}
+
+	public List<publicacionEntity> findAllByTipoPublicacionAndTipoInmueble(String tipoPublicacion,
+			String tipoInmueble) {
+		return publicacionRepositorio.getAllByTipoPublicacionAndTipoInmueble(tipoPublicacion, tipoInmueble);
+	}
+
+	public List<publicacionEntity> findAllByTipoPublicacionAndTipoInmuebleAndCiudad(String tipoPublicacion,
+			String tipoInmueble, String ciudad) {
+		return publicacionRepositorio.getAllByTipoPublicacionAndTipoInmuebleAndCiudad(tipoPublicacion, tipoInmueble,
+				ciudad);
+	}
+
 }

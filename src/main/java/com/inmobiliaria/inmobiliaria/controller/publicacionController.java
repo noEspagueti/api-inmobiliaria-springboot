@@ -83,4 +83,22 @@ public class publicacionController {
 	public List<publicacionEntity> getAllByCiudadDistrito(@PathVariable String ciudad, @PathVariable String distrito) {
 		return publicacionService.findAllByCiudadAndDistrito(ciudad, distrito);
 	}
+
+	@GetMapping("tipoPublicacion/{tipo}")
+	public List<publicacionEntity> getAllTipo(@PathVariable(name = "tipo") String tipoPublicacion) {
+		return publicacionService.findAllByTipoPublicacion(tipoPublicacion);
+	}
+
+	@GetMapping("galeria/{tipoPublicacion}/{tipoInmueble}")
+	public List<publicacionEntity> getAllByTipoPublicacionAndTipoInmueble(@PathVariable String tipoPublicacion,
+			@PathVariable String tipoInmueble) {
+		return publicacionService.findAllByTipoPublicacionAndTipoInmueble(tipoPublicacion, tipoInmueble);
+	}
+
+	@GetMapping("galeria/{tipoPublicacion}/{tipoInmueble}/{detalles}")
+	public List<publicacionEntity> getAllByTipoPublicacionAndTipoInmueble(@PathVariable String tipoPublicacion,
+			@PathVariable String tipoInmueble, @PathVariable String detalles) {
+		return publicacionService.findAllByTipoPublicacionAndTipoInmuebleAndCiudad(tipoPublicacion, tipoInmueble,
+				detalles);
+	}
 }

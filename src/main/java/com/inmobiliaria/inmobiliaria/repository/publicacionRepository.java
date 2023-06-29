@@ -14,7 +14,7 @@ import com.inmobiliaria.inmobiliaria.models.usuarioEntity;
 @Repository
 public interface publicacionRepository extends JpaRepository<publicacionEntity, Long> {
 	public publicacionEntity findByIdPublicacion(Long idPublicacion);
-	
+
 	public List<publicacionEntity> findAllByUsuarioDniUsuario(String dniUsuario);
 
 	@Query("SELECT distinct ciudad FROM publicacionEntity")
@@ -24,9 +24,17 @@ public interface publicacionRepository extends JpaRepository<publicacionEntity, 
 	public List<String> getAllDistrito();
 
 	@Query("SELECT p.distrito FROM publicacionEntity p WHERE p.ciudad = :ciudad")
-	public  List<String> getAllCiudadDistrito(@Param("ciudad") String ciudad);
-	
+	public List<String> getAllCiudadDistrito(@Param("ciudad") String ciudad);
+
 	public List<publicacionEntity> getAllByCiudad(String ciudad);
-	
+
 	public List<publicacionEntity> getAllByCiudadAndDistrito(String ciudad, String distrito);
+
+	public List<publicacionEntity> getAllByTipoPublicacion(String tipoPublicacion);
+
+	public List<publicacionEntity> getAllByTipoPublicacionAndTipoInmueble(String tipoPublicacion, String tipoInmueble);
+
+	public List<publicacionEntity> getAllByTipoPublicacionAndTipoInmuebleAndCiudad(String tipoPublicacion,
+			String tipoInmueble, String ciudad);
+
 }
