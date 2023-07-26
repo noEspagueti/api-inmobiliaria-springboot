@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.inmobiliaria.inmobiliaria.models.publicacionEntity;
+import com.inmobiliaria.inmobiliaria.models.inmuebles.casaEntity;
+import com.inmobiliaria.inmobiliaria.models.inmuebles.departamentoEntity;
+import com.inmobiliaria.inmobiliaria.models.inmuebles.terrenoEntity;
 import com.inmobiliaria.inmobiliaria.services.publicacionServices;
+import com.inmobiliaria.inmobiliaria.services.inmuebles.casaService;
+import com.inmobiliaria.inmobiliaria.services.inmuebles.departamentoService;
+import com.inmobiliaria.inmobiliaria.services.inmuebles.terrenoService;
 
 import jakarta.transaction.Transactional;
 
@@ -28,15 +35,53 @@ public class publicacionController {
 	@Autowired
 	private publicacionServices publicacionService;
 
+	// CASA
+	@Autowired
+	private casaService casaService;
+
+	// DEPARTAMENTO
+	@Autowired
+	private departamentoService departamentoService;
+
+	// TERRENO
+	@Autowired
+	private terrenoService terrenoService;
+
 	@GetMapping("/all")
 	public List<publicacionEntity> getAllPublicacion() {
 		return publicacionService.getFindAll();
 	}
 
+	// CREAR PUBLICACION
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional
 	public publicacionEntity savePublicacion(@RequestBody publicacionEntity p) {
-		return publicacionService.savePublicacion(p);
+
+		casaEntity casa = null;
+		departamentoEntity departamento = null;
+		terrenoEntity terreno = null;
+		String tipoInmueble = p.getTipoInmueble() != null ? p.getTipoInmueble().trim() : "";
+
+		if ("Casa".equals(tipoInmueble)) {
+			casa = new casaEntity(p.getTipoCasa().getAreaConstruida(), p.getTipoCasa().getAreaTotal(),
+					p.getTipoCasa().getNumeroBanio(), p.getTipoCasa().getNumeroHabitaciones(),
+					p.getTipoCasa().getNumeroPisos());
+			casaService.saveEntityCasa(casa);
+		} else if ("Departamento".equals(tipoInmueble)) {
+			departamento = new departamentoEntity(p.getTipoDepartamento().getNumeroHabitaciones(),
+					p.getTipoDepartamento().getNumeroBanio(), p.getTipoDepartamento().getNumeroPisos(),
+					p.getTipoDepartamento().getAreaTotal());
+			departamentoService.saveEntity(departamento);
+		} else if ("Terreno".equals(tipoInmueble)) {
+			terreno = new terrenoEntity(p.getTerreno().getAreaConstruida(), p.getTerreno().getAreaTotal());
+			terrenoService.saveEntityTerreno(terreno);
+		}
+
+		publicacionEntity publicacionEntity = new publicacionEntity(p.getUsuario(), casa, departamento, terreno,
+				p.getTitulo(), p.getDistrito(), p.getDireccion(), p.getCiudad(), p.getContenido(), p.getPrecio(),
+				p.getRutaImg(), p.getTipoPublicacion(), p.getTipoInmueble(), p.getFecha());
+
+		return publicacionService.savePublicacion(publicacionEntity);
 	}
 
 	@GetMapping("/{dniUsuario}")
@@ -101,4 +146,10 @@ public class publicacionController {
 		return publicacionService.findAllByTipoPublicacionAndTipoInmuebleAndCiudad(tipoPublicacion, tipoInmueble,
 				detalles);
 	}
+
+	@DeleteMapping("/delete/{id}")
+	public void deletePost(@PathVariable Long id) {
+		publicacionService.removePost(id);
+	}
+
 }

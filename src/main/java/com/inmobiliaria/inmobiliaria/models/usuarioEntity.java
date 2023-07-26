@@ -1,8 +1,6 @@
 
 package com.inmobiliaria.inmobiliaria.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -10,10 +8,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.List;
 
-/**
- *
- * @author Miguel
- */
 @Entity
 @Table(name = "usuario")
 public class usuarioEntity {
@@ -46,6 +40,8 @@ public class usuarioEntity {
 	private String distrito;
 	@Column(length = 9)
 	private String celular;
+	@Column(length = 50)
+	private String tipoUsuario;
 
 	public usuarioEntity() {
 		super();
@@ -53,7 +49,7 @@ public class usuarioEntity {
 
 	// CREAR USUARIO
 	public usuarioEntity(String dniUsuario, credencialesEntity credenciales, String nombre, String apellido,
-			String direccion, String distrito, String celular) {
+			String direccion, String distrito, String celular, String tipoUsuario) {
 		super();
 		this.dniUsuario = dniUsuario;
 		this.credenciales = credenciales;
@@ -62,6 +58,7 @@ public class usuarioEntity {
 		this.direccion = direccion;
 		this.distrito = distrito;
 		this.celular = celular;
+		this.tipoUsuario = tipoUsuario;
 	}
 
 	public String getDniUsuario() {
@@ -126,6 +123,14 @@ public class usuarioEntity {
 
 	public void setCelular(String celular) {
 		this.celular = celular;
+	}
+
+	public String getTipoUsuario() {
+		return this.tipoUsuario;
+	}
+
+	public void setTipoUsuario(String tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
 	}
 
 }

@@ -7,12 +7,9 @@ import com.inmobiliaria.inmobiliaria.services.credencialesServices;
 import com.inmobiliaria.inmobiliaria.services.usuarioServices;
 import jakarta.transaction.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,11 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
-
-/**
- *
- * @author Miguel
- */
 
 @RestController
 @RequestMapping("/api/usuarios")
@@ -49,9 +41,7 @@ public class usuarioController {
 		credencialesEntity credencial = new credencialesEntity(usuarioRequest.getCredenciales().getCorreo(),
 				usuarioRequest.getCredenciales().getClave());
 		credencial = credencialesService.saveCredenciales(credencial);
-		usuarioEntity newUser = new usuarioEntity(usuarioRequest.getDniUsuario(), credencial,
-				usuarioRequest.getNombre(), usuarioRequest.getApellido(),
-				usuarioRequest.getDireccion(), usuarioRequest.getDistrito(), usuarioRequest.getCelular());
+		usuarioEntity newUser = new usuarioEntity(usuarioRequest.getDniUsuario(),credencial,usuarioRequest.getNombre(),usuarioRequest.getApellido(),usuarioRequest.getDireccion(),usuarioRequest.getDistrito(),usuarioRequest.getCelular(),usuarioRequest.getTipoUsuario());
 		return usuarioService.saveUsuario(newUser);
 	}
 

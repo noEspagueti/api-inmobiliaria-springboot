@@ -67,4 +67,7 @@ public class publicacionServices {
 				ciudad);
 	}
 
+	public void removePost(Long id) {
+		publicacionRepositorio.deleteById(id);
+	}
 }
