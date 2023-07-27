@@ -1,6 +1,7 @@
 package com.inmobiliaria.inmobiliaria.models;
 
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -9,8 +10,10 @@ import jakarta.persistence.*;
 public class contactosEntity {
 
 	@Id
-	@Column(length = 8)
-	private String dniContacto;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(length = 8, unique = false)
+	private Long idContacto;
+
 	@Column(length = 100)
 	private String nombres;
 	@Column(length = 100)
@@ -20,9 +23,16 @@ public class contactosEntity {
 	@Column(length = 9)
 	private String celular;
 
+	private String dniContacto;
+
 	private String mensaje;
 
 	private Date fecha;
+
+	// @JoinTable(name = "rel_contacto_usuario", joinColumns = @JoinColumn(name =
+	// "FK_contacto"), inverseJoinColumns = @JoinColumn(name = "FK_usuario"))
+	// @ManyToMany
+	// private List<usuarioEntity> usuario;
 
 	@ManyToOne
 	@JoinColumn(name = "dniUsuario")
@@ -32,34 +42,25 @@ public class contactosEntity {
 		super();
 	}
 
-	public contactosEntity(String dniContacto, String nombres, String apellidos, String correo, String celular,
-			String mensaje, Date fecha, usuarioEntity usuario) {
-		super();
-		this.dniContacto = dniContacto;
+	public contactosEntity(Long idContacto, String nombres, String apellidos, String correo, String celular,
+			String dniContacto, String mensaje, Date fecha, usuarioEntity usuario) {
+		this.idContacto = idContacto;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.correo = correo;
 		this.celular = celular;
-		this.usuario = usuario;
+		this.dniContacto = dniContacto;
 		this.mensaje = mensaje;
 		this.fecha = fecha;
+		this.usuario = usuario;
 	}
 
-	public contactosEntity(String dniContacto, String nombres, String apellidos, String correo, String celular) {
-		super();
-		this.dniContacto = dniContacto;
-		this.nombres = nombres;
-		this.apellidos = apellidos;
-		this.correo = correo;
-		this.celular = celular;
+	public Long getIdContacto() {
+		return this.idContacto;
 	}
 
-	public String getDniContacto() {
-		return this.dniContacto;
-	}
-
-	public void setDniContacto(String dniContacto) {
-		this.dniContacto = dniContacto;
+	public void setIdContacto(Long idContacto) {
+		this.idContacto = idContacto;
 	}
 
 	public String getNombres() {
@@ -92,6 +93,14 @@ public class contactosEntity {
 
 	public void setCelular(String celular) {
 		this.celular = celular;
+	}
+
+	public String getDniContacto() {
+		return this.dniContacto;
+	}
+
+	public void setDniContacto(String dniContacto) {
+		this.dniContacto = dniContacto;
 	}
 
 	public String getMensaje() {

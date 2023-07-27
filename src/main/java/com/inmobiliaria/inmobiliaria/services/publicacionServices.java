@@ -1,13 +1,11 @@
 package com.inmobiliaria.inmobiliaria.services;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.inmobiliaria.inmobiliaria.models.publicacionEntity;
-import com.inmobiliaria.inmobiliaria.models.usuarioEntity;
 import com.inmobiliaria.inmobiliaria.repository.publicacionRepository;
 
 @Service
